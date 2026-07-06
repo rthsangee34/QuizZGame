@@ -65,10 +65,9 @@ export const AuthPage: React.FC<AuthPageProps> = ({ setPage, initialMode }) => {
       }} />
 
       {/* Auth Panel */}
-      <div className="glass-panel animate-fade-in" style={{
+      <div className="glass-panel animate-fade-in responsive-panel" style={{
         width: '100%',
         maxWidth: '460px',
-        padding: '40px',
         position: 'relative',
         zIndex: 10
       }}>

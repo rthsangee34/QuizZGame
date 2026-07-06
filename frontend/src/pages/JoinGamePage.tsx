@@ -87,10 +87,9 @@ export const JoinGamePage: React.FC<JoinGamePageProps> = ({ setPage }) => {
       }} />
 
       {/* Main Container */}
-      <div className="glass-panel animate-fade-in" style={{
+      <div className="glass-panel animate-fade-in responsive-panel" style={{
         width: '100%',
         maxWidth: '400px',
-        padding: '40px',
         textAlign: 'center',
         position: 'relative',
         zIndex: 10

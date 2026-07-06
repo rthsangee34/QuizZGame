@@ -134,10 +134,9 @@ export const PlayerGameView: React.FC<PlayerGameViewProps> = ({ setPage }) => {
       }} />
 
       {/* Main player box */}
-      <div className="glass-panel animate-fade-in" style={{
+      <div className="glass-panel animate-fade-in responsive-panel" style={{
         width: '100%',
         maxWidth: '480px',
-        padding: '30px',
         textAlign: 'center',
         position: 'relative',
         zIndex: 10
@@ -220,11 +219,8 @@ export const PlayerGameView: React.FC<PlayerGameViewProps> = ({ setPage }) => {
             {!answerSubmitted ? (
               <>
                 {currentQuestion.type === 'mcq' && (
-                  <div style={{
-                    display: 'grid',
-                    gridTemplateColumns: '1fr 1fr',
-                    gap: '16px',
-                    height: '240px'
+                  <div className="responsive-mcq-grid" style={{
+                    gap: '16px'
                   }}>
                     {currentQuestion.choices.map((choice, idx) => (
                       <button

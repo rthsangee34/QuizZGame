@@ -2,7 +2,9 @@ import { createContext, useContext, useState, useEffect, useRef, useCallback } f
 import type { ReactNode } from 'react';
 import { io, Socket } from 'socket.io-client';
 
-const BACKEND_URL = 'http://localhost:5000';
+const BACKEND_URL = typeof window !== 'undefined' && window.location && (window.location.hostname === 'localhost' || window.location.hostname.match(/^\d+\.\d+\.\d+\.\d+$/))
+  ? `http://${window.location.hostname}:5000`
+  : 'http://localhost:5000';
 
 interface User {
   id: string;
@@ -73,6 +75,7 @@ interface QuizVerseContextType {
   correctAnswer: string;
   choiceDistribution: Record<string, number>;
   playerQuestionResult: {
+    hasAnswered: boolean;
     isCorrect: boolean;
     pointsEarned: number;
     correctAnswer: string;

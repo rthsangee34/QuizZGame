@@ -94,15 +94,7 @@ export const HostGameView: React.FC<HostGameViewProps> = ({ setPage }) => {
       }} />
 
       {/* Header bar */}
-      <header className="glass-panel" style={{
-        display: 'flex',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        padding: '12px 30px',
-        marginBottom: '20px',
-        position: 'relative',
-        zIndex: 10
-      }}>
+      <header className="glass-panel app-header" style={{ marginBottom: '20px' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
           <span style={{ fontSize: '1.2rem', fontWeight: 800 }}>
             Quiz<span className="title-gradient">Verse Live</span>
@@ -158,7 +150,7 @@ export const HostGameView: React.FC<HostGameViewProps> = ({ setPage }) => {
 
         {/* 1. LOBBY STATE */}
         {gameState === 'lobby' && (
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 2fr', gap: '30px', flexGrow: 1 }}>
+          <div className="responsive-grid-dashboard" style={{ gap: '30px', flexGrow: 1 }}>
             
             {/* PIN Column */}
             <div className="glass-panel" style={{
@@ -277,7 +269,7 @@ export const HostGameView: React.FC<HostGameViewProps> = ({ setPage }) => {
             </div>
 
             {/* Timer and Response Row */}
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 2fr 1fr', gap: '20px', alignItems: 'center' }}>
+            <div className="responsive-grid-3cols" style={{ alignItems: 'center' }}>
               {/* Circular Timer (Left) */}
               <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                 <div style={{
@@ -322,9 +314,7 @@ export const HostGameView: React.FC<HostGameViewProps> = ({ setPage }) => {
             </div>
 
             {/* Answer Choices Grid */}
-            <div style={{
-              display: 'grid',
-              gridTemplateColumns: '1fr 1fr',
+            <div className="grid-cols-2" style={{
               gap: '20px'
             }}>
               {currentQuestion.choices.map((choice, index) => (
@@ -586,14 +576,7 @@ export const HostGameView: React.FC<HostGameViewProps> = ({ setPage }) => {
             </div>
 
             {/* Podium Visual */}
-            <div style={{
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'flex-end',
-              gap: '20px',
-              height: '300px',
-              margin: '30px 0'
-            }}>
+            <div className="responsive-podium-container">
               {/* 2nd Place (Left) */}
               {podium[1] && (
                 <div className="animate-fade-in" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>

@@ -253,3 +253,249 @@ body {
     grid-template-columns: 1fr;
   }
 }
+
+/* Responsive Global Utilities */
+
+/* Header styling */
+.app-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 40px;
+  margin: 20px 40px;
+  position: relative;
+  z-index: 10;
+}
+
+@media (max-width: 768px) {
+  .app-header {
+    margin: 10px 10px;
+    padding: 12px 16px;
+    flex-direction: column;
+    gap: 16px;
+    align-items: center;
+    text-align: center;
+  }
+  .app-header nav,
+  .app-header .nav-container {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+  }
+}
+
+/* Panel responsive padding */
+.responsive-panel {
+  padding: 40px;
+}
+@media (max-width: 576px) {
+  .responsive-panel {
+    padding: 20px;
+  }
+}
+
+/* Dashboard responsive grid layout */
+.responsive-grid-dashboard {
+  display: grid;
+  grid-template-columns: 1.8fr 1.2fr;
+  gap: 40px;
+}
+
+@media (max-width: 992px) {
+  .responsive-grid-dashboard {
+    grid-template-columns: 1fr;
+    gap: 24px;
+    padding-left: 20px !important;
+    padding-right: 20px !important;
+  }
+}
+
+/* Builder responsive grid layout */
+.responsive-grid-builder {
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  gap: 30px;
+}
+
+@media (max-width: 768px) {
+  .responsive-grid-builder {
+    grid-template-columns: 1fr;
+    gap: 20px;
+    padding-left: 20px !important;
+    padding-right: 20px !important;
+  }
+}
+
+/* Builder sidebar height adjustment */
+.responsive-builder-sidebar {
+  max-height: calc(100vh - 160px);
+}
+@media (max-width: 768px) {
+  .responsive-builder-sidebar {
+    max-height: 300px;
+  }
+}
+
+/* Three column responsive grid */
+.responsive-grid-3cols {
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr;
+  gap: 20px;
+}
+
+@media (max-width: 768px) {
+  .responsive-grid-3cols {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+}
+
+/* Quiz Card responsive layouts */
+.quiz-card-flex {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+@media (max-width: 576px) {
+  .quiz-card-flex {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+  .quiz-card-flex > div:last-child {
+    width: 100%;
+    justify-content: flex-start;
+    gap: 8px;
+  }
+}
+
+/* Responsive MCQ Grid for PlayerGameView and HostGameView */
+.responsive-mcq-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  height: 240px;
+}
+@media (max-width: 576px) {
+  .responsive-mcq-grid {
+    grid-template-columns: 1fr;
+    height: auto;
+    min-height: 240px;
+  }
+}
+
+/* Responsive Title Input for QuizBuilder */
+.responsive-title-input {
+  width: 300px;
+}
+@media (max-width: 576px) {
+  .responsive-title-input {
+    width: 100%;
+  }
+}
+
+/* Responsive Hero Title font size */
+.responsive-hero-title {
+  font-size: 4rem;
+  font-weight: 800;
+  line-height: 1.15;
+  margin-bottom: 24px;
+  letter-spacing: -0.03em;
+}
+@media (max-width: 768px) {
+  .responsive-hero-title {
+    font-size: 2.2rem;
+  }
+}
+
+/* Responsive hero section spacing */
+.responsive-hero-section {
+  max-width: 1200px;
+  margin: 80px auto 40px;
+  padding: 0 40px;
+  text-align: center;
+  position: relative;
+  z-index: 10;
+}
+@media (max-width: 768px) {
+  .responsive-hero-section {
+    margin: 40px auto 20px;
+    padding: 0 20px;
+  }
+}
+
+/* Responsive CTA buttons */
+.responsive-cta-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+@media (max-width: 576px) {
+  .responsive-cta-buttons {
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+  }
+  .responsive-cta-buttons .btn {
+    width: 100%;
+  }
+}
+
+/* Responsive Sections margin and padding */
+.responsive-section {
+  max-width: 1200px;
+  margin: 100px auto;
+  padding: 0 40px;
+  position: relative;
+  z-index: 10;
+}
+@media (max-width: 768px) {
+  .responsive-section {
+    margin: 40px auto;
+    padding: 0 20px;
+  }
+}
+
+/* Responsive pricing panel */
+.responsive-pricing-panel {
+  max-width: 1000px;
+  margin: 100px auto;
+  padding: 60px 40px;
+  text-align: center;
+  position: relative;
+  z-index: 10;
+}
+@media (max-width: 768px) {
+  .responsive-pricing-panel {
+    margin: 40px auto;
+    padding: 30px 20px;
+  }
+}
+
+/* Responsive podium container */
+.responsive-podium-container {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  gap: 20px;
+  height: 300px;
+  margin: 30px 0;
+}
+@media (max-width: 480px) {
+  .responsive-podium-container {
+    flex-direction: column;
+    align-items: center;
+    height: auto;
+    gap: 16px;
+  }
+  .responsive-podium-container > div {
+    width: 100%;
+    max-width: 200px;
+  }
+  .responsive-podium-container > div > div:last-child {
+    height: auto !important;
+    padding: 10px 0;
+    border-radius: 8px !important;
+  }
+}
+

@@ -1,6 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { Trash2, Save, ArrowLeft, AlertCircle, Sparkles, Check, HelpCircle } from 'lucide-react';
 
+const BACKEND_URL = typeof window !== 'undefined' && window.location && (window.location.hostname === 'localhost' || window.location.hostname.match(/^\d+\.\d+\.\d+\.\d+$/))
+  ? `http://${window.location.hostname}:5000`
+  : 'http://localhost:5000';
+
 interface QuizBuilderProps {
   setPage: (page: string) => void;
   selectedQuizId: string | null;
@@ -35,7 +39,7 @@ export const QuizBuilder: React.FC<QuizBuilderProps> = ({ setPage, selectedQuizI
       }
 
       try {
-        const res = await fetch(`http://localhost:5000/api/quizzes/${selectedQuizId}`);
+        const res = await fetch(`${BACKEND_URL}/api/quizzes/${selectedQuizId}`);
         if (res.ok) {
           const data = await res.json();
           setQuizTitle(data.title);
@@ -218,8 +222,8 @@ export const QuizBuilder: React.FC<QuizBuilderProps> = ({ setPage, selectedQuizI
     setSaving(true);
     try {
       const url = selectedQuizId 
-        ? `http://localhost:5000/api/quizzes/${selectedQuizId}`
-        : 'http://localhost:5000/api/quizzes';
+        ? `${BACKEND_URL}/api/quizzes/${selectedQuizId}`
+        : `${BACKEND_URL}/api/quizzes`;
       const method = selectedQuizId ? 'PUT' : 'POST';
 
       const res = await fetch(url, {
@@ -251,23 +255,18 @@ export const QuizBuilder: React.FC<QuizBuilderProps> = ({ setPage, selectedQuizI
     <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
       
       {/* Quiz Builder Header */}
-      <header className="glass-panel" style={{
-        display: 'flex',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        padding: '16px 40px',
-        margin: '20px 40px',
-      }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
+      <header className="glass-panel app-header">
+        <div style={{ display: 'flex', alignItems: 'center', gap: '16px', flexWrap: 'wrap' }}>
           <button className="btn btn-secondary" onClick={() => setPage('dashboard')} style={{ padding: '8px 12px' }}>
             <ArrowLeft size={16} /> Dashboard
           </button>
-          <div style={{ display: 'flex', flexDirection: 'column' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', width: '100%', maxWidth: '300px' }}>
             <input 
               type="text" 
               placeholder="Enter Quiz Title..." 
               value={quizTitle}
               onChange={(e) => setQuizTitle(e.target.value)}
+              className="responsive-title-input"
               style={{
                 background: 'none',
                 border: 'none',
@@ -276,14 +275,13 @@ export const QuizBuilder: React.FC<QuizBuilderProps> = ({ setPage, selectedQuizI
                 fontSize: '1.25rem',
                 fontWeight: 800,
                 outline: 'none',
-                paddingBottom: '4px',
-                width: '300px'
+                paddingBottom: '4px'
               }}
             />
           </div>
         </div>
 
-        <div style={{ display: 'flex', gap: '12px' }}>
+        <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
           <button className="btn btn-secondary" onClick={() => setPage('dashboard')}>Cancel</button>
           <button className="btn btn-primary" onClick={handleSaveQuiz} disabled={saving}>
             <Save size={16} /> {saving ? 'Saving...' : 'Save Quiz'}
@@ -292,24 +290,20 @@ export const QuizBuilder: React.FC<QuizBuilderProps> = ({ setPage, selectedQuizI
       </header>
 
       {/* Editor Content Grid */}
-      <main style={{
+      <main className="responsive-grid-builder" style={{
         flexGrow: 1,
         maxWidth: '1400px',
         width: '100%',
         margin: '0 auto',
-        padding: '0 40px 40px',
-        display: 'grid',
-        gridTemplateColumns: '300px 1fr',
-        gap: '30px'
+        padding: '0 40px 40px'
       }}>
         
         {/* Left Panel: Questions List */}
-        <section className="glass-panel" style={{
+        <section className="glass-panel responsive-builder-sidebar" style={{
           padding: '20px',
           display: 'flex',
           flexDirection: 'column',
           gap: '16px',
-          maxHeight: 'calc(100vh - 160px)',
           overflowY: 'auto'
         }}>
           <h3 style={{ fontSize: '1.1rem', fontWeight: 700, borderBottom: '1px solid var(--panel-border)', paddingBottom: '10px' }}>
@@ -417,7 +411,7 @@ export const QuizBuilder: React.FC<QuizBuilderProps> = ({ setPage, selectedQuizI
             <div className="glass-panel" style={{ padding: '30px', display: 'flex', flexDirection: 'column', gap: '24px' }}>
               
               {/* Question Meta Settings */}
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '20px' }}>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: '20px' }}>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
                   <label style={{ fontSize: '0.85rem', fontWeight: 700, color: 'var(--text-secondary)' }}>Question Type</label>
                   <select 
@@ -502,9 +496,7 @@ export const QuizBuilder: React.FC<QuizBuilderProps> = ({ setPage, selectedQuizI
                   <label style={{ fontSize: '0.85rem', fontWeight: 700, color: 'var(--text-secondary)', display: 'flex', alignItems: 'center', gap: '6px' }}>
                     Choices & Correct Answer <HelpCircle size={14} style={{ color: 'var(--text-muted)' }} />
                   </label>
-                  <div style={{
-                    display: 'grid',
-                    gridTemplateColumns: '1fr 1fr',
+                  <div className="grid-cols-2" style={{
                     gap: '20px'
                   }}>
                     {activeQuestion.choices.map((choice, index) => {
@@ -564,7 +556,7 @@ export const QuizBuilder: React.FC<QuizBuilderProps> = ({ setPage, selectedQuizI
               {activeQuestion.type === 'true_false' && (
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
                   <label style={{ fontSize: '0.85rem', fontWeight: 700, color: 'var(--text-secondary)' }}>Select Correct Option</label>
-                  <div style={{ display: 'flex', gap: '20px' }}>
+                  <div style={{ display: 'flex', gap: '20px', flexWrap: 'wrap' }}>
                     {['true', 'false'].map((option) => {
                       const isCorrect = activeQuestion.correctAnswer === option;
                       const color = option === 'true' ? '#10b981' : '#ef4444';

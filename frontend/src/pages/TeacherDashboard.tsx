@@ -2,6 +2,10 @@ import React, { useEffect, useState } from 'react';
 import { useQuizVerse } from '../contexts/QuizVerseContext';
 import { Play, Plus, Trash2, Edit, BarChart2, Calendar, Users, LogOut, Sun, Moon, Sparkles, BookOpen } from 'lucide-react';
 
+const BACKEND_URL = typeof window !== 'undefined' && window.location && (window.location.hostname === 'localhost' || window.location.hostname.match(/^\d+\.\d+\.\d+\.\d+$/))
+  ? `http://${window.location.hostname}:5000`
+  : 'http://localhost:5000';
+
 interface TeacherDashboardProps {
   setPage: (page: string) => void;
   setSelectedQuizId: (id: string | null) => void;
@@ -35,8 +39,8 @@ export const TeacherDashboard: React.FC<TeacherDashboardProps> = ({ setPage, set
   const fetchData = async () => {
     try {
       setLoading(true);
-      const quizzesRes = await fetch('http://localhost:5000/api/quizzes');
-      const reportsRes = await fetch('http://localhost:5000/api/reports');
+      const quizzesRes = await fetch(`${BACKEND_URL}/api/quizzes`);
+      const reportsRes = await fetch(`${BACKEND_URL}/api/reports`);
       
       if (quizzesRes.ok) {
         const quizzesData = await quizzesRes.json();
@@ -62,7 +66,7 @@ export const TeacherDashboard: React.FC<TeacherDashboardProps> = ({ setPage, set
     if (!window.confirm('Are you sure you want to delete this quiz?')) return;
     
     try {
-      const res = await fetch(`http://localhost:5000/api/quizzes/${id}`, {
+      const res = await fetch(`${BACKEND_URL}/api/quizzes/${id}`, {
         method: 'DELETE'
       });
       if (res.ok) {
@@ -92,13 +96,7 @@ export const TeacherDashboard: React.FC<TeacherDashboardProps> = ({ setPage, set
   return (
     <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
       {/* Dashboard Nav Header */}
-      <header className="glass-panel" style={{
-        display: 'flex',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        padding: '16px 40px',
-        margin: '20px 40px',
-      }}>
+      <header className="glass-panel app-header">
         <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
           <div style={{
             background: 'linear-gradient(135deg, var(--primary-color), var(--secondary-color))',
@@ -131,15 +129,12 @@ export const TeacherDashboard: React.FC<TeacherDashboardProps> = ({ setPage, set
       </header>
 
       {/* Main Layout Grid */}
-      <main style={{
+      <main className="responsive-grid-dashboard" style={{
         flexGrow: 1,
         maxWidth: '1400px',
         width: '100%',
         margin: '0 auto',
-        padding: '0 40px 40px',
-        display: 'grid',
-        gridTemplateColumns: '1.8fr 1.2fr',
-        gap: '40px'
+        padding: '0 40px 40px'
       }}>
         
         {/* Left Section: Quiz Library */}
@@ -172,11 +167,8 @@ export const TeacherDashboard: React.FC<TeacherDashboardProps> = ({ setPage, set
           ) : (
             <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
               {quizzes.map((quiz) => (
-                <div key={quiz.id} className="glass-card" style={{
+                <div key={quiz.id} className="glass-card quiz-card-flex" style={{
                   padding: '24px',
-                  display: 'flex',
-                  justifyContent: 'space-between',
-                  alignItems: 'center',
                   cursor: 'pointer'
                 }} onClick={() => handleHostGame(quiz.id)}>
                   <div style={{ flexGrow: 1, marginRight: '20px' }}>
@@ -199,7 +191,7 @@ export const TeacherDashboard: React.FC<TeacherDashboardProps> = ({ setPage, set
                     <p style={{ color: 'var(--text-secondary)', fontSize: '0.95rem' }}>{quiz.description || 'No description provided.'}</p>
                   </div>
                   
-                  <div style={{ display: 'flex', gap: '12px' }} onClick={(e) => e.stopPropagation()}>
+                  <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }} onClick={(e) => e.stopPropagation()}>
                     <button className="btn btn-cyan" onClick={() => handleHostGame(quiz.id)} style={{ padding: '10px 16px' }}>
                       <Play size={16} /> Host
                     </button>
@@ -264,6 +256,8 @@ export const TeacherDashboard: React.FC<TeacherDashboardProps> = ({ setPage, set
                   {/* Summary Stats */}
                   <div style={{
                     display: 'flex',
+                    flexWrap: 'wrap',
+                    gap: '10px',
                     background: 'rgba(9, 9, 11, 0.4)',
                     borderRadius: '8px',
                     padding: '12px',

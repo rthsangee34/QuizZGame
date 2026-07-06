@@ -36,15 +36,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ setPage }) => {
       }} />
 
       {/* Navigation Header */}
-      <header className="glass-panel" style={{
-        display: 'flex',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        padding: '16px 40px',
-        margin: '20px 40px',
-        position: 'relative',
-        zIndex: 10,
-      }}>
+      <header className="glass-panel app-header">
         <div style={{ display: 'flex', alignItems: 'center', gap: '10px', cursor: 'pointer' }} onClick={() => setPage('landing')}>
           <div style={{
             background: 'linear-gradient(135deg, var(--primary-color), var(--secondary-color))',
@@ -90,14 +82,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ setPage }) => {
       </header>
 
       {/* Hero Section */}
-      <section style={{
-        maxWidth: '1200px',
-        margin: '80px auto 40px',
-        padding: '0 40px',
-        textAlign: 'center',
-        position: 'relative',
-        zIndex: 10
-      }}>
+      <section className="responsive-hero-section">
         <div style={{
           display: 'inline-flex',
           alignItems: 'center',
@@ -114,13 +99,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ setPage }) => {
           <Sparkles size={14} /> Reimagining Interactive Classrooms
         </div>
         
-        <h1 style={{
-          fontSize: '4rem',
-          fontWeight: 800,
-          lineHeight: '1.15',
-          marginBottom: '24px',
-          letterSpacing: '-0.03em'
-        }}>
+        <h1 className="responsive-hero-title">
           Engage Students with <br />
           <span className="title-gradient">Real-Time Interactive Quizzes</span>
         </h1>
@@ -135,7 +114,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ setPage }) => {
           QuizVerse is the premium live game platform built for schools, bootcamps, and professional environments. No installation, instant PIN login, and stunning analytics.
         </p>
 
-        <div style={{ display: 'flex', justifyContent: 'center', gap: '20px' }}>
+        <div className="responsive-cta-buttons">
           <button className="btn btn-cyan" style={{ padding: '16px 36px', fontSize: '1.1rem' }} onClick={() => setPage('join')}>
             <Play size={20} /> Join a Game Now
           </button>
@@ -146,13 +125,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ setPage }) => {
       </section>
 
       {/* Features Grid */}
-      <section style={{
-        maxWidth: '1200px',
-        margin: '100px auto',
-        padding: '0 40px',
-        position: 'relative',
-        zIndex: 10
-      }}>
+      <section className="responsive-section">
         <h2 style={{ textAlign: 'center', fontSize: '2.2rem', fontWeight: 800, marginBottom: '50px' }}>
           Features Beyond The ordinary
         </h2>
@@ -197,14 +170,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ setPage }) => {
       </section>
 
       {/* Pricing Mock */}
-      <section className="glass-panel" style={{
-        maxWidth: '1000px',
-        margin: '100px auto',
-        padding: '60px 40px',
-        textAlign: 'center',
-        position: 'relative',
-        zIndex: 10
-      }}>
+      <section className="glass-panel responsive-pricing-panel">
         <h2 style={{ fontSize: '2.2rem', fontWeight: 800, marginBottom: '16px' }}>Simple, transparent Pricing</h2>
         <p style={{ color: 'var(--text-secondary)', marginBottom: '50px' }}>Everything you need for classrooms and enterprise teams.</p>
         
